@@ -8,6 +8,7 @@ module.exports = {
         try {
             const v = new Validator(req.body, {
                 name: "required",
+                email:'required',
             });
             let errorsResponse = await helper.checkValidation(v);
             if (errorsResponse) {
@@ -74,4 +75,5 @@ module.exports = {
           res.status(500).json({ success: false, message: "Internal server error" });
         }
     },
+    
 }

@@ -10,9 +10,9 @@ dashboard: async (req, res) => {
     try {
         if (!req.session.admin) return res.redirect("/login");
         const users = await db.users.count({ where: { role: '1' } });
-        const provider = await db.users.count({where:{role:'2'}});
-        const worker = await db.users.count({where : {role: '3'}});
-        const service = await db.servicelist.count({});
+        const category = await db.category.count({});
+        const product = await db.products.count({});
+        const banner = await db.banner.count({});
         const usersByMonth = await db.users.findAll({
             where: { role: '1' },
             attributes: [
@@ -32,9 +32,9 @@ dashboard: async (req, res) => {
             session: req.session.admin,
             title: "Dashboard",
             users,
-            provider,
-            worker,
-            service,
+            category,
+            product,
+            banner,
             chartData ,
           
         });
@@ -144,35 +144,39 @@ password: async(req,res)=>{
     }
 },
 updatepassword: async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
 
-      const { oldPassword, newPassword, confirmPassword } = req.body;
-    
-      try {
-        if (!req.session.admin) return res.redirect("/login");
-        if (!oldPassword || !newPassword || !confirmPassword) {
-          return res.status(400).json({ message: 'All fields are required' });
-        }
-        if (newPassword !== confirmPassword) {
-          return res.status(400).json({ message: 'New password and confirm password do not match' });
-        }
-        const user = await db.users.findOne({ where: { id: req.session.admin.id } });
-        if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-        }
-        const isMatch = await bcrypt.compare(oldPassword, user.password);
-        if (!isMatch) {
-          return res.status(400).json({ message: 'Old password is incorrect' });
-        }
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        user.password = hashedPassword;
-        await user.save();
-        req.session.admin.password = hashedPassword;
-        res.redirect('/login'); 
-      } catch (error) {
-        console.error('Error updating password:', error);
-        res.status(500).json({ message: 'Server error' });
-      }
+  try {
+    if (!req.session.admin) return res.redirect("/login");
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+    if (newPassword !== confirmPassword) {
+      req.flash("error", "New password and confirm password do not match");
+      return res.status(400).json({ message: 'New password and confirm password do not match' });
+    }
+    const user = await db.users.findOne({ where: { id: req.session.admin.id } });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      req.flash("error", "Old password is incorrect");
+      return res.status(400).json({ message: 'Old password is incorrect' });
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+    req.session.admin.password = hashedPassword;
+    req.flash("success", "Password updated successfully");
+    res.redirect('/login'); 
+  } catch (error) {
+    console.error('Error updating password:', error);
+    req.flash("error", "Server error");
+    res.status(500).json({ message: 'Server error' });
+  }
 },
+
 logout: async (req, res) => {
       try {
         req.session.destroy();
@@ -302,23 +306,5 @@ images: async (req, res) => {
       return helper.error(res, "Internal server error", error);
     }
 }, 
-Worker_list: async (req, res) => {  
-    try {
-      if (!req.session.admin) return res.redirect("/login");
-      const data = await db.users.findAll({
-        where: {
-          role: "3",
-        },
-        raw: true,
-      });
-      res.render("admin/workerlist", {
-        title: "Workers",
-        data,
-        session: req.session.admin,
-      });
-    } catch (error) {
-      console.error("Error fetching worker list:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-},
+
 }

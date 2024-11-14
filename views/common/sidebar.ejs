@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " id='sidebar-menu' data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item me-auto"><a class="navbar-brand" href="#"><span class="brand-logo">
@@ -25,7 +25,7 @@
                                 </g>
                             </g>
                         </svg></span>
-                    <h2 class="brand-text">Vuexy</h2>
+                    <h2 class="brand-text">Arabah</h2>
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
         </ul>
@@ -37,27 +37,27 @@
                 <a class="d-flex align-items-center" href="/dashboard"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
             </li>
             <li class="nav-item" id="nav-userlist">
-                <a class="d-flex align-items-center" href="/userlist"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Userlist">Users</span></a>
-            </li>
-            <li class="nav-item" id="nav-providerlist">
-                <a class="d-flex align-items-center" href="/providerlist"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="">Providers</span></a>
-            </li>
-            <li class="nav-item" id="nav-worklist">
-                <a class="d-flex align-items-center" href="/workerlist"><i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="">Workers</span></a>
+                <a class="d-flex align-items-center" href="/userlist"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="Userlist">Users</span></a>
             </li>
             <li class="nav-item" id="nav-categorlist">
-                <a class="d-flex align-items-center" href="/categorylist"><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="">Categories</span></a>
+                <a class="d-flex align-items-center" href="/categorylist"><i data-feather="folder"></i><span class="menu-title text-truncate" data-i18n="">Categories</span></a>
             </li>
             <li class="nav-item" id="nav-categorlist">
-                <a class="d-flex align-items-center" href="/servicelist"><i data-feather="check-circle"></i><span class="menu-title text-truncate" data-i18n="">Services</span></a>
+                <a class="d-flex align-items-center" href="/productlist"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="">Products</span></a>
             </li>
             <li class="nav-item" id="nav-categorlist">
-                <a class="d-flex align-items-center" href="/bookinglist"><i data-feather="calendar"></i><span class="menu-title text-truncate" data-i18n="">Bookings</span></a>
+                <a class="d-flex align-items-center" href="/banners"><i data-feather="image"></i><span class="menu-title text-truncate" data-i18n="">Banners</span></a>
+            </li>
+            <li class="nav-item" id="nav-categorlist">
+                <a class="d-flex align-items-center" href="/commentlist"><i data-feather="message-circle"></i><span class="menu-title text-truncate" data-i18n="">Comments</span></a>
+            </li>
+            <li class="nav-item" id="nav-categorlist">
+                <a class="d-flex align-items-center" href="/ratinglist"><i data-feather="star"></i><span class="menu-title text-truncate" data-i18n="">Ratings</span></a>
             </li>
             <li class="nav-item" id="nav-term">
                 <a class="d-flex align-items-center" href="/contactus"><i data-feather="phone"></i><span class="menu-title text-truncate" data-i18n="TermsConditions">Contact Us</span></a>
             </li>
-            <li class="nav-item" id="nav-privacy">
+             <li class="nav-item" id="nav-privacy">
                 <a class="d-flex align-items-center" href="/privacy"><i data-feather="lock"></i><span class="menu-title text-truncate" data-i18n="Privacy">Privacy Policy</span></a>
             </li>
             <li class="nav-item" id="nav-aboutus">
@@ -66,24 +66,21 @@
             <li class="nav-item" id="nav-term">
                 <a class="d-flex align-items-center" href="/term"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="TermsConditions">Terms & Conditions</span></a>
             </li>
-           
         </ul>
     </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const currentPath = window.location.pathname;
-
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(function(item) {
-        const link = item.querySelector('a');
-        if (link.getAttribute('href') === currentPath) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
-});
-
-</script>    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navItems = document.querySelectorAll('.nav-item'); 
+            navItems.forEach(function(item) {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPath) {
+                    item.classList.add('active'); 
+                } else {
+                    item.classList.remove('active'); 
+                }
+            });
+        });
+    </script>
     
 </div>

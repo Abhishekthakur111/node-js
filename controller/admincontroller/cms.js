@@ -71,13 +71,13 @@ module.exports = {
             res.status(500).json({ message: 'An error occurred while updating the aboutus update' });
         }
     },
-    term: async (req, res) => {
+    term: async (req, res) => { 
         try {
             if (!req.session.admin) return res.redirect("/login");
             const privacy = await db.cms.findOne({
                 where: { type: '3' },     
                  });
-            res.render("cms/term", {
+            res.render("cms/terms", {
                 title: "Terms & Conditons",
                 session: req.session.admin,
               privacy,

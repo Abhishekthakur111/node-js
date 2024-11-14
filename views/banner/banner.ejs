@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head -->
+<%- include('../common/header.ejs'); %>
+<!-- END: Head -->
+
+<!-- BEGIN: Body -->
+<body class="vertical-layout vertical-menu-modern navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
+    <!-- BEGIN: Header -->
+    <%- include('../common/navbar.ejs'); %>
+    <!-- END: Header -->
+
+    <!-- BEGIN: Main Menu -->
+    <%- include('../common/sidebar.ejs'); %>
+    <!-- END: Main Menu -->
+
+    <!-- BEGIN: Content -->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <!-- You can add header content here -->
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper">
+                    <div class="auth-inner py-2">
+                        <!-- Register v1 -->
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <form class="auth-register-form" action="" method="POST">
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <% for (let i = 0; i < data.length; i++) { %>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>" aria-current="<%= i === 0 ? 'true' : 'false' %>" aria-label="Slide <%= i + 1 %>"></button>
+                                            <% } %>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <% data.forEach((item, index) => { %>
+                                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                                    <img src="<%= item.image %>" class="d-block w-100 carousel-image" alt="Image <%= index + 1 %>" title="<%= item.title %>">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <h5 class="carousel-title"><%= item.title %></h5> <!-- Display Title -->
+                                                    </div>
+                                                    <!-- Buttons for Edit and Delete, specific to each image -->
+                                                    <div class="carousel-buttons">
+                                                        <!-- <a href="/bannerview/<%= item.id %>" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                                            <i class="me-80" data-feather="eye"></i>
+                                                        </a> -->
+                                                        <a href="/banneredit/<%= item.id %>" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                            <i class="me-80" data-feather="edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-danger" onclick="deleteUser('<%= item.id %>', event)" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                                                            <i class="me-80" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        </div>
+
+                                        <!-- Buttons for Add at the top left -->
+                                        <div class="carousel-top-buttons">
+                                            <a href="/addbanner" type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Add">
+                                                <i class="me-50" data-feather="plus"></i> Add
+                                            </a>
+                                        </div>
+
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /Register v1 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Content -->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer -->
+    <%- include('../common/footer.ejs'); %>
+    <!-- END: Footer -->
+
+    <!-- BEGIN: Vendor JS -->
+    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <!-- END: Vendor JS -->
+
+    <!-- BEGIN: Page Vendor JS -->
+    <script src="../../../app-assets/vendors/js/charts/apexcharts.min.js"></script>
+    <script src="../../../app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <!-- END: Page Vendor JS -->
+
+    <!-- BEGIN: Theme JS -->
+    <script src="../../../app-assets/js/core/app-menu.js"></script>
+    <script src="../../../app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS -->
+
+    <!-- BEGIN: Page JS -->
+    <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- END: Page JS -->
+
+    <script>
+        $(window).on('load', function () {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+        function deleteUser(user_id, event) {
+            event.preventDefault(); // Prevent default link action
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: `/deletebanner/${user_id}`,
+                        data: { id: user_id },
+                        success: function (response) {
+                            if (response.success) {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Deleted!",
+                                    text: "The banner has been deleted.",
+                                    icon: "success"
+                                }).then(() => {
+                                    location.reload(); 
+                                });
+                            } else {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Error!",
+                                    text: "Something went wrong.",
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error: function () {
+                            swalWithBootstrapButtons.fire({
+                                title: "Error!",
+                                text: "An error occurred while deleting the banner",
+                                icon: "error"
+                            });
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "The banner is safe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    </script>
+
+    <style>
+        /* Carousel Image Styles */
+        .carousel-image {
+            max-height: 60vh; /* Set maximum height */
+            object-fit: cover; /* Maintain aspect ratio while filling the container */
+        }
+
+        /* Button Styles */
+        .carousel-top-buttons {
+            position: absolute;
+            top: 15px; /* Position from top */
+            left: 15px; /* Position from left */
+            z-index: 1000; /* Ensure the buttons appear above the carousel */
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            bottom: 15px; /* Position from bottom */
+            right: 15px; /* Position from right */
+            z-index: 1000; /* Ensure the buttons appear above the carousel */
+        }
+        /* Title Styles */
+        .carousel-title {
+            color: white;
+            font-size: 2.5rem; /* Increase font size */
+            font-weight: bold; /* Make title bold */
+            text-shadow: 2px 2px 4px #fcf0f0df; /* Optional: add shadow for better readability */
+        }
+    </style>
+</body>
+<!-- END: Body -->
+</html>

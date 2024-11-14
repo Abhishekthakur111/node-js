@@ -12,7 +12,7 @@ const flash = require("express-flash");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-
+  
 var app = express();
 const port = process.env.port || 9000;
 
@@ -29,7 +29,7 @@ app.use(flash());
 app.use(session({
   secret: process.env.SESSION_SECRET, 
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true,  
   cookie: { secure: false }
 }));
 app.use(express.static(path.join(__dirname, 'public')));

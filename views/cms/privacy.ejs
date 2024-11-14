@@ -43,7 +43,7 @@
                                         <div class="col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="description">Description</label>
-                                                <textarea class="form-control textcolor" name="description" id="summernote" cols="80" rows="80" required><%= privacy.description %></textarea>
+                                                <textarea class="form-control textcolor" name="description" id="summernote" cols="1000" rows="1000" required><%= privacy.description %></textarea>
                                                 <div id="error-message" style="color: red; display: none;">This field is required.</div>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
             $('#summernote').summernote({
                 placeholder: 'Enter content here',
                 tabsize: 2,
-                height: 300,
+                height: 400,
                 toolbar: [  
                     ['style', ['style']],
                     ['font', ['bold', 'underline', 'clear']],

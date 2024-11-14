@@ -13,14 +13,9 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: ""
     },
     email: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.TEXT,
       allowNull: false,
-      defaultValue: ""
-    },
-    phone_no: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      defaultValue: ""
+      defaultValue: "''"
     },
     message: {
       type: DataTypes.STRING(255),

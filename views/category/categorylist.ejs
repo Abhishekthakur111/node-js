@@ -5,17 +5,14 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   
-
     <!-- BEGIN: Head-->
     <%- include('../common/header.ejs'); %>
     <!-- END: Head-->
 
     <style>
-        
         .card-datatable {
             padding: 20px; 
         }
-       
     </style>
 </head>
 <!-- END: Head-->
@@ -40,19 +37,11 @@
             <div class="content-body">
                 <!-- users list start -->
                 <section class="app-user-list">
-                    <!-- users filter start -->
-                    <!-- users filter end -->
-                    <!-- list section start -->
                     <div class="card">
                         <div class="card-header">
-                            
-                                <!-- Button to the left of the search -->
-                                <!-- <a class="btn btn-primary me-2" id="addUserBtn">Add </a> -->
-                                <!-- Search field -->
-                                <div>
-                                    <a href="/addcategory"  class="btn btn-primary me-2" >Add</a>
-                                </div>
-                            
+                            <div>
+                                <a href="/addcategory" class="btn btn-primary me-2">Add</a>
+                            </div>
                         </div>
                         <div class="card-datatable table-responsive pt-0">
                             <table id="myTable" class="user-list-table table">
@@ -72,21 +61,22 @@
                                         <td><%= item.name %></td>
                                         <td>
                                             <% if (item.image) { %>
-                                                <img src="<%= item.image %>" alt="User Image" style="width: 50px; height: 50px; object-fit: cover;">
+                                                <img src="<%= item.image %>" alt="category Image" style="width: 50px; height: 50px; object-fit: cover;">
                                             <% } else { %>
                                                 <span>No Image</span>
                                             <% } %>
                                         </td>
                                         <td>
                                             <% if (item.status == 0) { %>
-                                                <a data-id="<%= item.id %>" data-status="0" class="btn btn-info status-toggle">Inactive</a>
+                                                <a data-id="<%= item.id %>" data-status="0" class="btn btn-info status-toggle">Active</a>
                                             <% } else { %>
-                                                <a data-id="<%= item.id %>" data-status="1" class="btn btn-warning status-toggle">Active</a>
+                                                <a data-id="<%= item.id %>" data-status="1" class="btn btn-warning status-toggle">InActive</a>
                                             <% } %>
                                         </td>
                                         <td>
-                                            <a href="/categoryview/<%= item.id %>" class="btn btn-success"><i class="me-80" data-feather="eye"></i></a>
-                                            <a href="#" onclick="deleteUser('<%= item.id %>', event)" class="btn btn-danger"><i class="me-80" data-feather="trash"></i></a>
+                                            <a href="/editcategory/<%= item.id %>" class="btn btn-primary" data-toggle="tooltip" title="Edit"><i class="me-80" data-feather="edit"></i></a>
+                                            <a href="/categoryview/<%= item.id %>" class="btn btn-success" data-toggle="tooltip" title="View"><i class="me-80" data-feather="eye"></i></a>
+                                            <a href="#" onclick="deleteUser('<%= item.id %>', event)" class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="me-80" data-feather="trash"></i></a>
                                         </td>
                                     </tr>
                                     <% }) %>
@@ -140,12 +130,15 @@
                     height: 14
                 });
             }
+            $('[data-toggle="tooltip"]').tooltip(); // Initialize tooltips
         });
 
         $(document).ready(function() {
+            // Initialize DataTable
             $('#myTable').DataTable();
 
-            $(".status-toggle").on("click", function() {
+            // Event delegation for status toggle
+            $(document).on("click", ".status-toggle", function() {
                 let button = $(this);
                 let userId = button.attr("data-id");
                 let currentStatus = button.attr("data-status");
@@ -161,9 +154,9 @@
                     success: function(response) {
                         if (response.success) {
                             if (newStatus === "1") {
-                                button.text("Active").removeClass("btn-info").addClass("btn-warning");
+                                button.text("InActive").removeClass("btn-info").addClass("btn-warning");
                             } else {
-                                button.text("Inactive").removeClass("btn-warning").addClass("btn-info");
+                                button.text("Active").removeClass("btn-warning").addClass("btn-info");
                             }
                             button.attr("data-status", newStatus);
                             toastr.success('Status updated successfully.');

@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 const auth = require('../controller/apicontroller/auth');
 const admin = require('../controller/admincontroller/admin');
-const cms = require('../controller/admincontroller/cms');
-const provider = require('../controller/admincontroller/providerlist');
 const category = require('../controller/category/category');
-const service = require('../controller/admincontroller/servicelist');
-const booking = require('../controller/admincontroller/booking');
+const product = require('../controller/admincontroller/product');
+const cms  = require('../controller/admincontroller/cms');
 const contactus = require('../controller/admincontroller/contactus');
+const banner = require('../controller/admincontroller/banner');
+const comment = require('../controller/admincontroller/comment');
+const rating = require('../controller/admincontroller/rating');
+
+
 
 
 /* GET home page. */
@@ -35,6 +38,36 @@ router.post('/delete/:id',admin.user_delete);
 router.post('/status', admin.user_status);
 router.post('/images', admin.images);
 
+// router for category
+router.post('/category', category.createcategory );
+router.get('/categorylist',category.Categorylist);
+router.post('/statuschange', category.status);
+router.post('/deletes/:id',category.delete);
+router.get('/categoryview/:id',category.categoryview);
+router.get('/addcategory',category.addcategory);
+router.get('/editcategory/:id',category.editcat);
+router.post('/editcategory/:id', category.categoryedit);
+
+// routes for products
+router.post('/product', product.createproduct);
+router.get('/productlist', product.getproduct);
+router.post('/productstatus', product.status);
+router.post('/deleted/:id', product.delete);
+router.get('/productview/:id', product.productview);
+router.get('/productadd',product.productadd);
+router.get('/productedit/:id',product.producteditview);
+router.post('/productedit/:id',product.productedit);
+router.get('/product/review/:id', product.productreview);
+
+//routes for banner
+router.post('/createbanner', banner.createbanner);
+router.get('/banners', banner.bannerlist);
+router.post('/deletebanner/:id', banner.bannerdelete);
+// router.get('/bannerview/:id', banner.bannerview);
+router.get('/banneredit/:id', banner.editban);
+router.post('/banneredits/:id', banner.banneredit);
+router.get('/addbanner',banner.addbanner);
+
 //router for cms
 router.get('/privacy', cms.privacy);
 router.post('/privacy', cms.privacy_update);
@@ -43,40 +76,24 @@ router.post('/aboutus', cms.aboutusupdate);
 router.get('/term',cms.term);
 router.post('/term', cms.terms);
 
-// router for provider list
-router.get('/providerlist', provider.provider_list);
-router.get('/workerlist', admin.Worker_list);
-
-// router for category
-router.post('/category', category.createcategory );
-router.get('/categorylist',category.Categorylist);
-router.post('/statuschange', category.status);
-router.post('/deletes/:id',category.delete);
-router.get('/categoryview/:id',category.categoryview);
-router.get('/addcategory',category.addcategory);
-
-// router for service
-router.post('/service', service.createservice);
-router.get('/servicelist', service.getservice);
-router.post('/servicestatus', service.status);
-router.post('/deleted/:id', service.delete);
-router.get('/serviceview/:id', service.serviceview);
-router.get('/serviceadd',service.serviceadd);
-
-
-// router for booking
-router.post('/booking', booking.createBooking );
-router.get('/bookinglist',booking.getBooking);
-router.post('/bookingstatus', booking.bookingstatus);
-router.post('/deletebooking/:id',booking.deletebooking);
-router.get('/bookingview/:id', booking.bookingview);
-
-
 // router for contactus
 router.post('/createcontactus',contactus.createcontactus);
 router.get('/contactus',contactus.getcontactus);
 router.post('/deletecontact/:id',contactus.deletecontact);
 router.get('/viewcontact/:id',contactus.contactview);
+
+// router for comments
+router.post('/createcomment', comment.createcomments);
+router.get('/commentlist', comment.commentget);
+router.get('/commentview/:id', comment.commentview);
+router.post('/commentdelete/:id', comment.commentdelete);
+
+
+//router for rating
+router.post('/createrating', rating.createrating);
+router.get('/ratinglist', rating.ratinglist);
+router.get('/ratingview/:id', rating.ratingview);
+router.post('/ratingdelete/:id', rating.ratingdelete);
 
 
 module.exports = router;

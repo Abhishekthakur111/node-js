@@ -2,21 +2,22 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('users', {
     id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       primaryKey: true
     },
     role: {
-      type: DataTypes.ENUM('0','1','2','3'),
+      type: DataTypes.ENUM('0','1','2'),
       allowNull: false,
       defaultValue: "1"
     },
-    name: {
+    email: {
       type: DataTypes.STRING(255),
       allowNull: false,
       defaultValue: ""
     },
-    email: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: false,
       defaultValue: ""
@@ -26,18 +27,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: ""
     },
-    image: {
+    address: {
       type: DataTypes.STRING(255),
       allowNull: false,
       defaultValue: ""
     },
-    status: {
-      type: DataTypes.ENUM('0','1'),
-      allowNull: false,
-      defaultValue: "1"
-    },
-    address: {
-      type: DataTypes.STRING(255),
+    image: {
+      type: DataTypes.STRING(233),
       allowNull: false,
       defaultValue: ""
     },
@@ -45,11 +41,46 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false,
       defaultValue: ""
+    },
+    country_code: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      defaultValue: ""
+    },
+    otp: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      defaultValue: ""
+    },
+    date: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      defaultValue: ""
+    },
+    is_verfied: {
+      type: DataTypes.ENUM('0','1'),
+      allowNull: false,
+      defaultValue: "0"
+    },
+    status: {
+      type: DataTypes.ENUM('0','1'),
+      allowNull: false,
+      defaultValue: "1"
     }
   }, {
     sequelize,
     tableName: 'users',
     timestamps: true,
-    paranoid: true
+    paranoid: true,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "id" },
+        ]
+      },
+    ]
   });
 };
