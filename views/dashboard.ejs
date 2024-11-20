@@ -18,10 +18,10 @@
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
-    <div class="app-content content">
+    <div class="app-content content ">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        <div class="content-wrapper container-xxl p-0">
+        <div class="content-wrapper container-xxl p-0 ">
             <div class="content-header row">
             </div>
             <div class="content-body">
@@ -29,10 +29,7 @@
                 <!-- Statistics Card -->
                 <div class="col-xl-12 col-md-6 col-12">
                     <div class="card card-statistics">
-                        <div class="card-header">
-                            <h4 class="card-title">Statistics</h4>
-                         
-                        </div>
+                       
                         <div class="card-body statistics-body">
                             <div class="row">
                                 <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
@@ -40,7 +37,7 @@
                                         <div class="d-flex flex-row">
                                             <div class="avatar bg-light-primary me-2">
                                                 <div class="avatar-content">
-                                                    <i data-feather="user" class="avatar-icon"></i>
+                                                    <i data-feather="users" class="avatar-icon"></i>
                                                 </div>
                                             </div>
                                             <div class="my-auto">
@@ -51,50 +48,51 @@
                                     </a>
                                 </div>
                                 <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
-                                 <a href="/providerlist">
+                                 <a href="/carrierlist">
                                     <div class="d-flex flex-row">
                                         <div class="avatar bg-light-info me-2">
                                             <div class="avatar-content">
-                                                <i data-feather="users" class="avatar-icon"></i>
+                                                <i data-feather="truck" class="avatar-icon"></i>
                                             </div>
                                         </div>
                                         <div class="my-auto">
-                                            <h4 class="fw-bolder mb-0"><%= provider%></h4>
-                                            <h2 class="card-text font-small-3 mb-0">Providers</h2>
+                                            <h4 class="fw-bolder mb-0"><%= carrier%></h4>
+                                            <h2 class="card-text font-small-3 mb-0">Carrier</h2>
                                         </div>
                                     </div>
                                  </a>
                                 </div>
                                 <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
-                                 <a href="/workerlist">
+                                 <a href="/rewards">
                                     <div class="d-flex flex-row">
                                         <div class="avatar bg-light-danger me-2">
                                             <div class="avatar-content">
-                                                <i data-feather="briefcase" class="avatar-icon"></i>
+                                                <i data-feather="gift" class="avatar-icon"></i>
                                             </div>
                                         </div>
                                         <div class="my-auto">
-                                            <h4 class="fw-bolder mb-0"><%= worker%></h4>
-                                            <h2 class="card-text font-small-3 mb-0">Workers</h2>
+                                            <h4 class="fw-bolder mb-0"><%=reward%></h4>
+                                            <h2 class="card-text font-small-3 mb-0">Rewards</h2>
                                         </div>
                                     </div>
                                  </a>
                                 </div>
-                                <div class="col-xl-3 col-sm-6 col-12">
-                                   <a href="/servicelist">
-                                    <div class="d-flex flex-row">
-                                        <div class="avatar bg-light-success me-2">
-                                            <div class="avatar-content">
-                                                <i data-feather="package" class="avatar-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="my-auto">
-                                            <h4 class="fw-bolder mb-0"><%= service%></h4>
-                                            <h2 class="card-text font-small-3 mb-0">Service</h2>
-                                        </div>
-                                    </div>
-                                   </a>
-                                </div>
+                                <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                                    <a href="/contacts">
+                                       <div class="d-flex flex-row">
+                                           <div class="avatar bg-light-danger me-2">
+                                               <div class="avatar-content">
+                                                   <i data-feather="phone" class="avatar-icon"></i>
+                                               </div>
+                                           </div>
+                                           <div class="my-auto">
+                                               <h4 class="fw-bolder mb-0"><%=contact%></h4>
+                                               <h2 class="card-text font-small-3 mb-0">Contacts</h2>
+                                           </div>
+                                       </div>
+                                    </a>
+                                   </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -105,7 +103,7 @@
                 <div class="col-xl-12 col-md-12 col-12 mt-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Users List Chart</h4>
+                            <h4 class="card-title">Users Chart</h4>
                         </div>
                         <div class="card-body">
                             <div id="chart"></div>
@@ -155,7 +153,9 @@
                 chart: {
                     height: 350,
                     type: 'bar',
+                    
                 },
+                colors: ['#f9a553'],
                 plotOptions: {
                     bar: {
                         borderRadius: 10,
@@ -178,8 +178,8 @@
                         fill: {
                             type: 'gradient',
                             gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
+                                colorFrom: '#ffb84d',
+                                colorTo: '#ffb84d',
                                 stops: [0, 100],
                                 opacityFrom: 0.4,
                                 opacityTo: 0.5,

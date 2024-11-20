@@ -41,19 +41,20 @@
                                             name="email" readonly value="<%=data.email %>"
                                             aria-describedby="email" tabindex="2" />
                                     </div>
+                                   
                                     <div class="mb-1">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" id="phone_number"
-                                            name="phone_no" readonly value="<%=data.phone_no %>"
-                                            aria-describedby="Phone" tabindex="4" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label for="address" class="form-label">Message</label>
-                                        <input type="text" class="form-control" id="phone_number"
-                                            name="message" readonly value="<%=data.message %>"
+                                        <label for="address" class="form-label">Location</label>
+                                        <input type="text" class="form-control" id="location"
+                                            name="location" readonly value="<%=data.location %>"
                                             aria-describedby="address" tabindex="3" />
                                     </div>
-                                    <a href="/contactus" class="btn btn-primary " tabindex="6">Back </a>
+                                    <div class="mb-1">
+                                        <label for="address" class="form-label">Phone Number</label>
+                                        <input type="text" class="form-control" id="location"
+                                            name="phone_no" readonly value="<%=data.phone_no %>"
+                                            aria-describedby="address" tabindex="3" />
+                                    </div>
+                                    <button class="btn btn-warning" tabindex="6" onclick="window.history.back();">Back</button>
                                 </form>
                             </div>
                         </div>

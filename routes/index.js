@@ -1,18 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const auth = require('../controller/apicontroller/auth');
-const admin = require('../controller/admincontroller/admin');
-const cms = require('../controller/admincontroller/cms');
-const provider = require('../controller/admincontroller/providerlist');
-const category = require('../controller/category/category');
-const service = require('../controller/admincontroller/servicelist');
-const booking = require('../controller/admincontroller/booking');
-const contactus = require('../controller/admincontroller/contactus');
 
 
-/* GET home page. */
-router.post('/create', auth.createUser );
-router.post('/get', auth.get);
+
+const admin = require('../controller/admincontroller/authcontroller');
+const cms  = require('../controller/admincontroller/cmscontroller');
+const contactus = require('../controller/admincontroller/contactcontroller');
+const rewards = require('../controller/admincontroller/rewardcontroller');
+const package = require('../controller/admincontroller/packagecontroller');
+const carrier = require('../controller/admincontroller/carriercontroller');
+const carriercontroller = require('../controller/admincontroller/carriercontroller');
+
+
 
 // router to render 
 router.get('/dashboard', admin.dashboard);
@@ -33,7 +32,6 @@ router.get('/userlist', admin.user_list);
 router.get('/view/:id', admin.view);
 router.post('/delete/:id',admin.user_delete);
 router.post('/status', admin.user_status);
-router.post('/images', admin.images);
 
 //router for cms
 router.get('/privacy', cms.privacy);
@@ -43,40 +41,36 @@ router.post('/aboutus', cms.aboutusupdate);
 router.get('/term',cms.term);
 router.post('/term', cms.terms);
 
-// router for provider list
-router.get('/providerlist', provider.provider_list);
-router.get('/workerlist', admin.Worker_list);
-
-// router for category
-router.post('/category', category.createcategory );
-router.get('/categorylist',category.Categorylist);
-router.post('/statuschange', category.status);
-router.post('/deletes/:id',category.delete);
-router.get('/categoryview/:id',category.categoryview);
-router.get('/addcategory',category.addcategory);
-
-// router for service
-router.post('/service', service.createservice);
-router.get('/servicelist', service.getservice);
-router.post('/servicestatus', service.status);
-router.post('/deleted/:id', service.delete);
-router.get('/serviceview/:id', service.serviceview);
-router.get('/serviceadd',service.serviceadd);
-
-
-// router for booking
-router.post('/booking', booking.createBooking );
-router.get('/bookinglist',booking.getBooking);
-router.post('/bookingstatus', booking.bookingstatus);
-router.post('/deletebooking/:id',booking.deletebooking);
-router.get('/bookingview/:id', booking.bookingview);
-
-
 // router for contactus
 router.post('/createcontactus',contactus.createcontactus);
-router.get('/contactus',contactus.getcontactus);
+router.get('/contacts',contactus.getcontacts);
 router.post('/deletecontact/:id',contactus.deletecontact);
 router.get('/viewcontact/:id',contactus.contactview);
+router.get('/addcontact', contactus.contactadd);
+
+
+// router for rewards
+router.post('/createreward',rewards.createreward);
+router.get('/rewards', rewards.rewards);
+router.get('/rewardview/:id', rewards.rewardview);
+router.post('/deletereward/:id',rewards.deletereward);
+router.get('/addreward', rewards.rewardadd);
+router.get('/rewardedit/:id', rewards.reward_edit_get);
+router.post('/rewardupdate/:id',rewards.reward_edit_post);
+
+// router for packages
+router.get('/packagelist', package.packagelist);
+router.get('/packageview/:id', package.pacakge_view);
+router.post('/packagedelete/:id ',package.packagedelete);
+
+//router for carrier
+router.get('/carrierlist',carrier.carrier_list);
+router.get('/carrierview/:id',carrier.carrier_view);
+router.post('/carrierdelete/:id',carrier.carrier_delete);
+router.get('/addcarrier',carrier.carrier_add);
+router.post("/carrier_add_post",carrier.carrier_add_post);
+router.get('/carrieredit/:id',carrier.carrier_edit_get);
+router.post('/carrierupdate/:id',carrier.carrier_edit_post);
 
 
 module.exports = router;

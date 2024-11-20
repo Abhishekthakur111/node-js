@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+<%- include('../common/header.ejs'); %>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+<body class="vertical-layout vertical-menu-modern navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+    <!-- BEGIN: Header-->
+    <%- include('../common/navbar.ejs'); %>
+    <!-- END: Header-->
+
+    <!-- BEGIN: Main Menu-->
+    <%- include('../common/sidebar.ejs'); %>
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper ">
+                    <div class="auth-inner py-2">
+                        <!-- Edit v1 -->
+                        <div class="card mb-0">
+                            <div class="card-body ">
+                                <form class="auth-register-form" action="/createcontactus" method="POST">
+                                    <div class="mb-1">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" 
+                                            aria-describedby="name" tabindex="1" autofocus />
+                                            <div class="invalid-feedback">This field is required</div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="phone_no" class="form-label">Phone Number</label>
+                                        <input type="number" class="form-control" id="phone_no" name="phone_no" 
+                                            aria-describedby="phone_no" tabindex="4" />
+                                            <div class="invalid-feedback">This field is required</div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" 
+                                            aria-describedby="email" tabindex="2" />
+                                            <div class="invalid-feedback">This field is required</div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="location" class="form-label">Location</label>
+                                        <input type="text" class="form-control" id="location" name="location" 
+                                            aria-describedby="location" tabindex="3" />
+                                            <div class="invalid-feedback">This field is required</div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" 
+                                            aria-describedby="password" tabindex="3" />
+                                            <div class="invalid-feedback">This field is required</div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-warning" tabindex="6">Add</button>
+                                    <button type="button" class="btn btn-success" onclick="history.back()" tabindex="6">Back</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /Edit v1 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    <%- include('../common/footer.ejs'); %>
+    <!-- END: Footer-->
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <!-- END: Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="../../../app-assets/vendors/js/charts/apexcharts.min.js"></script>
+    <script src="../../../app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="../../../app-assets/js/core/app-menu.js"></script>
+    <script src="../../../app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- END: Page JS-->
+
+    <script>
+        $(document).ready(function () {
+            // Form validation on submit
+            $('form').on('submit', function (event) {
+                var isValid = true;
+    
+                // Validate name (should only contain letters and not be empty)
+                var nameInput = $('#name');
+                var nameValue = nameInput.val();
+                nameInput.val(nameValue.replace(/[^a-zA-Z\s]/g, '')); // Allow only letters and spaces
+                if (nameInput.val().trim() === '') {
+                    nameInput.removeClass('is-valid').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    nameInput.removeClass('is-invalid').addClass('is-valid');
+                }
+    
+                // Validate phone number (should not be empty)
+                var phoneInput = $('#phone_no');
+                if (phoneInput.val().trim() === '') {
+                    phoneInput.removeClass('is-valid').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    phoneInput.removeClass('is-invalid').addClass('is-valid');
+                }
+    
+                // Validate email (should follow a proper email format)
+                var emailInput = $('#email');
+                if (emailInput.val().trim() === '' || !/\S+@\S+\.\S+/.test(emailInput.val())) {
+                    emailInput.removeClass('is-valid').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    emailInput.removeClass('is-invalid').addClass('is-valid');
+                }
+    
+                // Validate location (should not be empty)
+                var locationInput = $('#location');
+                if (locationInput.val().trim() === '') {
+                    locationInput.removeClass('is-valid').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    locationInput.removeClass('is-invalid').addClass('is-valid');
+                }
+    
+                // Validate password (should not be empty)
+                var passwordInput = $('#password');
+                if (passwordInput.val().trim() === '') {
+                    passwordInput.removeClass('is-valid').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    passwordInput.removeClass('is-invalid').addClass('is-valid');
+                }
+    
+                // Prevent form submission if validation fails
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+    
+            // Automatically remove error styling when user starts typing
+            $('input').on('input', function () {
+                if ($(this).val().trim() !== '') {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        });
+    </script>
+</body>
+<!-- END: Body-->
+</html>
